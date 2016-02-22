@@ -46,6 +46,7 @@
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderItem.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Exceptions\MyStoreGeneralException.cs" />
     <Compile Include="IMyStoreConfig.cs" />
     <Compile Include="IMyStoreUnitOfWork.cs" />

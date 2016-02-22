@@ -72,6 +72,7 @@
     <Build Include="Tables\myst.Order.sql" />
     <Build Include="Tables\myst.OrderItem.sql" />
     <Build Include="Tables\myst.BasketItem.sql" />
+    <Build Include="Tables\myst.User.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyStore.DB.publish.xml" />

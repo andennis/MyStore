@@ -12,8 +12,7 @@ namespace MyStore.Repository.Mapping
             Property(x => x.Email).IsRequired().HasMaxLength(256);
             Property(x => x.LastName).IsRequired().HasMaxLength(64);
             Property(x => x.FirstName).HasMaxLength(64);
-            Property(x => x.UserName).IsRequired().HasMaxLength(64);
-            Property(x => x.Password).HasMaxLength(512);
+            HasOptional(x => x.User).WithMany().HasForeignKey(x => x.UserId).WillCascadeOnDelete(false);
         }
     }
 }

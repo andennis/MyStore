@@ -55,6 +55,7 @@
     <Compile Include="Mapping\OrderConfiguration.cs" />
     <Compile Include="Mapping\OrderItemConfiguration.cs" />
     <Compile Include="Mapping\ProductConfiguration.cs" />
+    <Compile Include="Mapping\UserConfiguration.cs" />
     <Compile Include="MyStoreDbContext.cs" />
     <Compile Include="MyStoreUnitOfWork.cs" />
     <Compile Include="OrderRepository.cs" />
