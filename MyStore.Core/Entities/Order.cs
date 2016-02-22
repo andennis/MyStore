@@ -1,4 +1,5 @@
-﻿using Common.Repository;
+﻿using System.Collections.Generic;
+using Common.Repository;
 
 namespace MyStore.Core.Entities
 {
@@ -8,10 +9,9 @@ namespace MyStore.Core.Entities
         public string OrderRefNumber { get; set; }
         public string Comment { get; set; }
 
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-
         public int ClientId { get; set; }
         public Client Client { get; set; }
+
+        public ICollection<OrderItem> Items { get; set; } 
     }
 }

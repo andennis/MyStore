@@ -17,6 +17,9 @@ namespace MyStore.Repository
             modelBuilder.Configurations.Add(new ProductConfiguration(DbScheme));
             modelBuilder.Configurations.Add(new OrderConfiguration(DbScheme));
             modelBuilder.Configurations.Add(new ClientConfiguration(DbScheme));
+            modelBuilder.Configurations.Add(new OrderItemConfiguration(DbScheme));
+            modelBuilder.Configurations.Add(new BasketItemConfiguration(DbScheme));
+
             base.OnModelCreating(modelBuilder);
         }
     }

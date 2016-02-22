@@ -41,16 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BasketItem.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderItem.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Exceptions\MyStoreGeneralException.cs" />
     <Compile Include="IMyStoreConfig.cs" />
     <Compile Include="IMyStoreUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
+    <Compile Include="SearchFilters\BasketItemFilter.cs" />
     <Compile Include="SearchFilters\OrderFilter.cs" />
+    <Compile Include="SearchFilters\OrderItemFilter.cs" />
+    <Compile Include="Services\IBasketItemService.cs" />
     <Compile Include="Services\IClientService.cs" />
+    <Compile Include="Services\IOrderItemService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
   </ItemGroup>

@@ -50,8 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapping\BasketItemConfiguration.cs" />
     <Compile Include="Mapping\ClientConfiguration.cs" />
     <Compile Include="Mapping\OrderConfiguration.cs" />
+    <Compile Include="Mapping\OrderItemConfiguration.cs" />
     <Compile Include="Mapping\ProductConfiguration.cs" />
     <Compile Include="MyStoreDbContext.cs" />
     <Compile Include="MyStoreUnitOfWork.cs" />
