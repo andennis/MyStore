@@ -11,17 +11,19 @@ using Common.BL;
 
 namespace MyStore.Web.Common
 {
-    public abstract class BaseEntityController<TEntityViewModel, TEntity, TService, TSearchFilter>
+    public abstract class BaseEntityController<TEntityViewModel, TEntity, TService, TSearchFilter> : Controller
         where TEntityViewModel : class, IViewModel, new()
         where TEntity : class, new()
         where TService : IBaseService<TEntity, TSearchFilter>
         where TSearchFilter : DefaultSearchFilter
     {
         protected readonly TService _service;
+        protected readonly IMapper _mapper;
 
-        protected BaseEntityController(TService service)
+        protected BaseEntityController(TService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         public virtual ActionResult Index()
@@ -55,7 +57,7 @@ namespace MyStore.Web.Common
                 DoCreate(model);
 
                 if (Request.IsAjaxRequest())
-                    return Json();
+                    return Json(null);
 
                 return RedirectTo(model);
             }
@@ -66,7 +68,7 @@ namespace MyStore.Web.Common
 
         protected virtual void DoCreate(TEntityViewModel model)
         {
-            TEntity entity = Mapper.Map<TEntityViewModel, TEntity>(model);
+            TEntity entity = _mapper.Map<TEntityViewModel, TEntity>(model);
             _service.Create(entity);
         }
         protected ActionResult CreateView(object model)
@@ -89,7 +91,7 @@ namespace MyStore.Web.Common
         protected virtual TEntityViewModel GetViewModel(int entityId)
         {
             TEntity entity = _service.Get(entityId);
-            return Mapper.Map<TEntity, TEntityViewModel>(entity);
+            return _mapper.Map<TEntity, TEntityViewModel>(entity);
         }
 
         [HttpPost]
@@ -101,7 +103,7 @@ namespace MyStore.Web.Common
                 DoUpdate(model);
 
                 if (Request.IsAjaxRequest())
-                    return Json();
+                    return Json(null);
 
                 return RedirectTo(model);
             }
@@ -113,7 +115,7 @@ namespace MyStore.Web.Common
         protected virtual void DoUpdate(TEntityViewModel model)
         {
             TEntity entity = _service.Get(model.EntityId);
-            entity = Mapper.Map<TEntityViewModel, TEntity>(model, entity);
+            entity = _mapper.Map<TEntityViewModel, TEntity>(model, entity);
             _service.Update(entity);
         }
         private ActionResult EditView(object model)
@@ -128,16 +130,16 @@ namespace MyStore.Web.Common
         public virtual ActionResult Get(int id)
         {
             TEntity entity = _service.Get(id);
-            TEntityViewModel model = Mapper.Map<TEntity, TEntityViewModel>(entity);
+            TEntityViewModel model = _mapper.Map<TEntity, TEntityViewModel>(entity);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         [AjaxOnly]
-        public virtual ActionResult GridSearch(GridDataRequest request, TSearchFilter searchFilter)
+        public virtual ActionResult GridSearch(TSearchFilter searchFilter)
         {
-            SearchResult<TEntity> result = _service.Search(GridRequestToSearchContext(request), searchFilter);
-            IEnumerable<TEntityViewModel> resultView = Mapper.Map<IEnumerable<TEntity>, IEnumerable<TEntityViewModel>>(result.Data);
-            return Json(GridDataResponse.Create(request, resultView, result.TotalCount), JsonRequestBehavior.AllowGet);
+            IEnumerable<TEntity> result = _service.Search(searchFilter);
+            IEnumerable<TEntityViewModel> resultView = _mapper.Map<IEnumerable<TEntity>, IEnumerable<TEntityViewModel>>(result);
+            return Json(GridDataResponse.Create(null, resultView, 0), JsonRequestBehavior.AllowGet);
         }
 
         [AjaxOnly]
@@ -145,7 +147,7 @@ namespace MyStore.Web.Common
         public virtual ActionResult Delete(int id)
         {
             _service.Delete(id);
-            return Json();
+            return Json(null);
         }
 
         protected virtual void PrepareModelToCreateView(TEntityViewModel model)
