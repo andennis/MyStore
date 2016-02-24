@@ -64,6 +64,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables\" />
     <Folder Include="Security\" />
+    <Folder Include="Post-Deployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\myst.Client.sql" />
@@ -76,5 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MyStore.DB.publish.xml" />
+    <PostDeploy Include="Post-Deployment\1. AddAdminUser.sql" />
   </ItemGroup>
 </Project>

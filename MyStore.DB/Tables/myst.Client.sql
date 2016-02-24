@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [myst].[Client] (
-    [ClientId] INT           NOT NULL,
+    [ClientId] INT           NOT NULL IDENTITY,
     [FirstName] NVARCHAR(64) NULL, 
     [LastName] NVARCHAR(64) NOT NULL, 
     [Email] NVARCHAR(256) NOT NULL, 

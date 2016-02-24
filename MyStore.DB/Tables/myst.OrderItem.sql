@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [myst].[OrderItem]
 (
-	[OrderItemId] INT NOT NULL PRIMARY KEY, 
+	[OrderItemId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [OrderId] INT NOT NULL, 
     [ProductId] INT NOT NULL, 
     [Amount] INT NOT NULL, 

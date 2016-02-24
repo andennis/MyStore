@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [myst].[Product]
 (
-	[ProductId] INT NOT NULL PRIMARY KEY, 
+	[ProductId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Name] NVARCHAR(64) NOT NULL, 
     [Description] NVARCHAR(MAX) NULL, 
     [Version] INT NOT NULL, 
