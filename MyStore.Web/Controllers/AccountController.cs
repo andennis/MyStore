@@ -1,9 +1,6 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using System.Web.Security;
+using MyStore.Core.Services;
 using MyStore.Web.Models;
 
 namespace MyStore.Web.Controllers
@@ -11,13 +8,13 @@ namespace MyStore.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
 
-        public AccountController()
+        public AccountController(IUserService userService)
         {
+            _userService = userService;
         }
 
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -25,27 +22,38 @@ namespace MyStore.Web.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                
+                if (_userService.IsAuthenticated(model.UserName, model.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(model.UserName, false);
+                    return RedirectToLocal(returnUrl);
+                }
+
+                ModelState.AddModelError(string.Empty, "Authentication failed");
             }
 
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
             return RedirectToAction("Index", "Home");
         }
 

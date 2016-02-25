@@ -1,6 +1,8 @@
 using System;
 using AutoMapper;
+using Common.Repository;
 using Microsoft.Practices.Unity;
+using MyStore.BL;
 using MyStore.BL.Services;
 using MyStore.Core;
 using MyStore.Core.Services;
@@ -41,7 +43,10 @@ namespace MyStore.Web
 
             MapperConfiguration cfg = AutoMapperConfig.Configure();
             container.RegisterInstance(typeof(IMapper), cfg.CreateMapper(), new ContainerControlledLifetimeManager());
+            container.RegisterType<IDbConfig, MyStoreConfig>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IMyStoreConfig, MyStoreConfig>(new ContainerControlledLifetimeManager());
             container.RegisterType<IMyStoreUnitOfWork, MyStoreUnitOfWork>();
+            container.RegisterType<IUserService, UserService>();
             container.RegisterType<IProductService, ProductService>();
         }
     }

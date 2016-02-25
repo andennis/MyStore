@@ -4,6 +4,5 @@ namespace MyStore.Core
 {
     public interface IMyStoreConfig : IDbConfig
     {
-         
     }
 }

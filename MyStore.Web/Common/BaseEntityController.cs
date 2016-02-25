@@ -134,6 +134,7 @@ namespace MyStore.Web.Common
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        /*
         [AjaxOnly]
         public virtual ActionResult GridSearch(TSearchFilter searchFilter)
         {
@@ -141,6 +142,7 @@ namespace MyStore.Web.Common
             IEnumerable<TEntityViewModel> resultView = _mapper.Map<IEnumerable<TEntity>, IEnumerable<TEntityViewModel>>(result);
             return Json(GridDataResponse.Create(null, resultView, 0), JsonRequestBehavior.AllowGet);
         }
+        */
 
         [AjaxOnly]
         [HttpPost]

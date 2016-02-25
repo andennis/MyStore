@@ -60,6 +60,7 @@
     <Compile Include="Services\IOrderItemService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common.BL\Common.BL.csproj">

@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using MyStore.Core.Entities;
 using MyStore.Repository.Mapping;
 
 namespace MyStore.Repository
@@ -14,11 +15,12 @@ namespace MyStore.Repository
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new ProductConfiguration(DbScheme));
-            modelBuilder.Configurations.Add(new OrderConfiguration(DbScheme));
-            modelBuilder.Configurations.Add(new ClientConfiguration(DbScheme));
-            modelBuilder.Configurations.Add(new OrderItemConfiguration(DbScheme));
-            modelBuilder.Configurations.Add(new BasketItemConfiguration(DbScheme));
+            modelBuilder.Configurations.Add<Product>(new ProductConfiguration(DbScheme));
+            modelBuilder.Configurations.Add<Order>(new OrderConfiguration(DbScheme));
+            modelBuilder.Configurations.Add<Client>(new ClientConfiguration(DbScheme));
+            modelBuilder.Configurations.Add<OrderItem>(new OrderItemConfiguration(DbScheme));
+            modelBuilder.Configurations.Add<BasketItem>(new BasketItemConfiguration(DbScheme));
+            modelBuilder.Configurations.Add<User>(new UserConfiguration(DbScheme));
 
             base.OnModelCreating(modelBuilder);
         }
