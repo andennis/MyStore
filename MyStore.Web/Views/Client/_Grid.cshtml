@@ -1,0 +1,13 @@
+﻿@(Html.Grid<ClientViewModel>()
+    .Name("grdClient")
+    .CssClass("myst-grid")
+    .DataSource(ds => ds.Read(Url.Action("GridSearch")))
+    .Columns(c =>
+                {
+                    c.Bound(p => p.ClientId).Title("ID").Width("100px");
+                    c.BoundLink(p => p.FullName, Url.Action("Edit"), id => id.ClientId);
+                    c.Bound(p => p.Email);
+                    c.Bound(p => p.ClientId).Title("Action")
+                        .GridAction("Edit", Url.Action("Edit"))
+                        .GridAjaxAction("Delete", Url.Action("Delete"));
+                }))

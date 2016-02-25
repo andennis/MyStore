@@ -1,0 +1,23 @@
+﻿@model BaseViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+    ViewBag.Title = "Edit " + Model.DisplayName;
+}
+
+@section Title
+{
+    <text><span class="flexCaption">@Model.DisplayName &nbsp;<span style="font-size: 24px;">[#@Model.EntityId]</span></span></text>
+}
+
+@Html.Partial("_Form")
+
+@section Actions
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="buttonSave" type="submit" value="Save" class="btn btn-default" />
+            <input id="buttonCancel" type="button" value="Cancel" class="btn btn-default" data-form-action="@(!string.IsNullOrEmpty(Model.RedirectUrl) ? Model.RedirectUrl : Url.Action("Index"))" />
+        </div>
+    </div>
+}

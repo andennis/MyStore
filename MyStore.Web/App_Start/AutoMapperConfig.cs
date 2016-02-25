@@ -11,6 +11,8 @@ namespace MyStore.Web
             return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Product, ProductViewModel>().ReverseMap();
+                cfg.CreateMap<Client, ClientViewModel>().ReverseMap();
+                cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
             });
         }
     }

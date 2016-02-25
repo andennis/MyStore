@@ -1,0 +1,35 @@
+﻿@model BaseViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well" style="margin-top: 40px">
+    <h3>
+        @RenderSection("Title")
+    </h3>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.RedirectUrl)
+        <div class="container-fluid">
+            @RenderBody()
+            <div class="form-group">
+                @RenderSection("Actions")
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.action.InitForm($("form"));
+        })
+    </script>
+}
+
+

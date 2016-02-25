@@ -24,7 +24,21 @@ namespace MyStore.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/DataTables-1.10.2/css/jquery.dataTables.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                "~/Scripts/DataTables-1.10.2/jquery.dataTables.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                "~/Scripts/kendo/2014.2.716/kendo.core.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                //"~/Scripts/jquery.form.js",
+                //"~/Scripts/FormAutoFill/jquery.formautofill.js",
+                "~/Scripts/Grid.js",
+                "~/Scripts/Action.js"));
+
         }
     }
 }

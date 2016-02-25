@@ -6,28 +6,38 @@ using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Microsoft.Practices.Unity;
 using AutoMapper;
 using Common.BL;
+using Common.Web.Grid;
 
 namespace MyStore.Web.Common
 {
-    public abstract class BaseEntityController<TEntityViewModel, TEntity, TService, TSearchFilter> : Controller
+    [Authorize]
+    public abstract class BaseEntityController<TEntityViewModel, TEntity, TService, TSearchFilter> : BaseController
         where TEntityViewModel : class, IViewModel, new()
         where TEntity : class, new()
         where TService : IBaseService<TEntity, TSearchFilter>
         where TSearchFilter : DefaultSearchFilter
     {
         protected readonly TService _service;
-        protected readonly IMapper _mapper;
 
-        protected BaseEntityController(TService service, IMapper mapper)
+        [Dependency]
+        public IMapper Mapper { get; set; }
+
+        protected BaseEntityController(TService service)
         {
             _service = service;
-            _mapper = mapper;
+        }
+
+        public virtual void SetIndexTitle()
+        {
+            ViewBag.Title = typeof (TEntity).Name + "s";
         }
 
         public virtual ActionResult Index()
         {
+            SetIndexTitle();
             return View();
         }
 
@@ -57,7 +67,7 @@ namespace MyStore.Web.Common
                 DoCreate(model);
 
                 if (Request.IsAjaxRequest())
-                    return Json(null);
+                    return JsonEx();
 
                 return RedirectTo(model);
             }
@@ -68,7 +78,7 @@ namespace MyStore.Web.Common
 
         protected virtual void DoCreate(TEntityViewModel model)
         {
-            TEntity entity = _mapper.Map<TEntityViewModel, TEntity>(model);
+            TEntity entity = Mapper.Map<TEntityViewModel, TEntity>(model);
             _service.Create(entity);
         }
         protected ActionResult CreateView(object model)
@@ -91,7 +101,7 @@ namespace MyStore.Web.Common
         protected virtual TEntityViewModel GetViewModel(int entityId)
         {
             TEntity entity = _service.Get(entityId);
-            return _mapper.Map<TEntity, TEntityViewModel>(entity);
+            return Mapper.Map<TEntity, TEntityViewModel>(entity);
         }
 
         [HttpPost]
@@ -103,7 +113,7 @@ namespace MyStore.Web.Common
                 DoUpdate(model);
 
                 if (Request.IsAjaxRequest())
-                    return Json(null);
+                    return JsonEx();
 
                 return RedirectTo(model);
             }
@@ -115,7 +125,7 @@ namespace MyStore.Web.Common
         protected virtual void DoUpdate(TEntityViewModel model)
         {
             TEntity entity = _service.Get(model.EntityId);
-            entity = _mapper.Map<TEntityViewModel, TEntity>(model, entity);
+            entity = Mapper.Map<TEntityViewModel, TEntity>(model, entity);
             _service.Update(entity);
         }
         private ActionResult EditView(object model)
@@ -130,26 +140,24 @@ namespace MyStore.Web.Common
         public virtual ActionResult Get(int id)
         {
             TEntity entity = _service.Get(id);
-            TEntityViewModel model = _mapper.Map<TEntity, TEntityViewModel>(entity);
-            return Json(model, JsonRequestBehavior.AllowGet);
+            TEntityViewModel model = Mapper.Map<TEntity, TEntityViewModel>(entity);
+            return JsonEx(model, JsonRequestBehavior.AllowGet);
         }
 
-        /*
         [AjaxOnly]
-        public virtual ActionResult GridSearch(TSearchFilter searchFilter)
+        public virtual ActionResult GridSearch(GridDataRequest request, TSearchFilter searchFilter)
         {
             IEnumerable<TEntity> result = _service.Search(searchFilter);
-            IEnumerable<TEntityViewModel> resultView = _mapper.Map<IEnumerable<TEntity>, IEnumerable<TEntityViewModel>>(result);
-            return Json(GridDataResponse.Create(null, resultView, 0), JsonRequestBehavior.AllowGet);
+            IEnumerable<TEntityViewModel> resultView = Mapper.Map<IEnumerable<TEntity>, IEnumerable<TEntityViewModel>>(result);
+            return Json(GridDataResponse.Create(request, resultView, 0), JsonRequestBehavior.AllowGet);
         }
-        */
 
         [AjaxOnly]
         [HttpPost]
         public virtual ActionResult Delete(int id)
         {
             _service.Delete(id);
-            return Json(null);
+            return JsonEx();
         }
 
         protected virtual void PrepareModelToCreateView(TEntityViewModel model)

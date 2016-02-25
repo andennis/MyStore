@@ -45,9 +45,11 @@ namespace MyStore.Web
             container.RegisterInstance(typeof(IMapper), cfg.CreateMapper(), new ContainerControlledLifetimeManager());
             container.RegisterType<IDbConfig, MyStoreConfig>(new ContainerControlledLifetimeManager());
             container.RegisterType<IMyStoreConfig, MyStoreConfig>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IMyStoreUnitOfWork, MyStoreUnitOfWork>();
-            container.RegisterType<IUserService, UserService>();
-            container.RegisterType<IProductService, ProductService>();
+            container.RegisterType<IMyStoreUnitOfWork, MyStoreUnitOfWork>(new PerRequestLifetimeManager());
+            container.RegisterType<IUserService, UserService>(new PerRequestLifetimeManager());
+            container.RegisterType<IProductService, ProductService>(new PerRequestLifetimeManager());
+            container.RegisterType<IClientService, ClientService>(new PerRequestLifetimeManager());
+            container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
         }
     }
 }

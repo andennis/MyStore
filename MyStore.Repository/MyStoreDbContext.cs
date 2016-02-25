@@ -8,6 +8,12 @@ namespace MyStore.Repository
     {
         private const string DbScheme = "myst";
 
+        static MyStoreDbContext()
+        {
+            // Fixed "Provider not loaded" error            
+            var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }
+
         public MyStoreDbContext(string nameOrConnectionString)
             :base(nameOrConnectionString)
         {
