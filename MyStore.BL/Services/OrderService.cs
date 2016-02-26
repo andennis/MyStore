@@ -26,7 +26,7 @@ namespace MyStore.BL.Services
         public override Order Get(int entityId)
         {
             return _repository.Query()
-                .Filter(x => x.ClientId == entityId)
+                .Filter(x => x.OrderId == entityId)
                 .Include(x => x.Client)
                 .Get().FirstOrDefault();
         }
