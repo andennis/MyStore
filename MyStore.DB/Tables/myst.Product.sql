@@ -3,9 +3,10 @@
 	[ProductId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [Name] NVARCHAR(64) NOT NULL, 
     [Description] NVARCHAR(MAX) NULL, 
+    [Price] DECIMAL(12, 5) NULL,
     [Version] INT NOT NULL, 
     [CreatedDate] DATETIME NOT NULL, 
-    [UpdatedDate] DATETIME NOT NULL
+    [UpdatedDate] DATETIME NOT NULL 
 )
 GO
 

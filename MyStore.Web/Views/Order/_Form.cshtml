@@ -2,37 +2,61 @@
 
 @Html.HiddenFor(m => m.OrderId)
 
-@if (Model.IsNew)
-{
-    <div class="form-group">
-        @Html.LabelFor(m => m.ClientId, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.ClientId, Model.Clients, new { @class = "form-control" })
+<div class="row">
+    @if (Model.IsNew)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.ClientId, new {@class = "col-md-2 control-label"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ClientId, Model.Clients, new {@class = "form-control"})
+            </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="form-group">
-        @Html.LabelFor(m => m.OrderRefNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayTextFor(m => m.OrderRefNumber)
-            @Html.HiddenFor(m => m.OrderRefNumber)
+    }
+    else
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.OrderRefNumber, new {@class = "col-md-2 control-label"})
+            <div class="col-md-10">
+                @Html.DisplayTextFor(m => m.OrderRefNumber)
+                @Html.HiddenFor(m => m.OrderRefNumber)
+            </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ClientName, new {@class = "col-md-2 control-label"})
+            <div class="col-md-10">
+                @Html.DisplayTextFor(m => m.ClientName)
+                @Html.HiddenFor(m => m.ClientId)
+            </div>
+        </div>
+    }
 
     <div class="form-group">
-        @Html.LabelFor(m => m.ClientName, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Comment, new {@class = "col-md-2 control-label"})
         <div class="col-md-10">
-            @Html.DisplayTextFor(m => m.ClientName)
-            @Html.HiddenFor(m => m.ClientId)
+            @Html.TextAreaFor(m => m.Comment, new {@class = "form-control"})
         </div>
-    </div>
-}
-
-<div class="form-group">
-    @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label" })
-    <div class="col-md-10">
-        @Html.TextAreaFor(m => m.Comment, new { @class = "form-control" })
     </div>
 </div>
+
+@*if (!Model.IsNew)
+{
+    <div class="row">
+        @Html.ActionLink("Add New", "Create", "OrderItem", new {@class = "btn btn-default", disabled = "disabled"})
+
+        @(Html.Grid<OrderItemViewModel>()
+              .Name("grdOrderItem")
+              .CssClass("myst-grid")
+              .DataSource(ds => ds.Read(Url.Action("GridSearch", "OrderItem", new {Model.OrderId})))
+              .Columns(c =>
+              {
+                  c.Bound(p => p.OrderId).Title("ID").Width("100px");
+                  c.BoundLink(p => p.ProductName, Url.Action("Edit", "Product"), id => id.ProductId).Title("Product Name");
+                  c.Bound(p => p.Amount);
+                  c.Bound(p => p.TotalAmount).Title("Total Amount");
+                  c.Bound(p => p.OrderId).Title("Action")
+                      .GridAction("Edit", Url.Action("Edit"))
+                      .GridAjaxAction("Delete", Url.Action("Delete"));
+              }))
+    </div>
+}*@

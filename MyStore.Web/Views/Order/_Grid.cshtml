@@ -6,7 +6,7 @@
                 {
                     c.Bound(p => p.OrderId).Title("ID").Width("100px");
                     c.BoundLink(p => p.OrderRefNumber, Url.Action("Edit"), id => id.OrderId).Title("Ref Number");
-                    c.Bound(p => p.ClientName).Title("Client Name");
+                    c.BoundLink(p => p.ClientName, Url.Action("Edit", "Client"), id => id.ClientId).Title("Client Name");
                     c.Bound(p => p.OrderId).Title("Action")
                         .GridAction("Edit", Url.Action("Edit"))
                         .GridAjaxAction("Delete", Url.Action("Delete"));
