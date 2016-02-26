@@ -12,7 +12,10 @@ namespace MyStore.Web
             {
                 cfg.CreateMap<Product, ProductViewModel>().ReverseMap();
                 cfg.CreateMap<Client, ClientViewModel>().ReverseMap();
-                cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
+
+                cfg.CreateMap<Order, OrderViewModel>()
+                    .ForMember(dst => dst.ClientName, x => x.MapFrom(src => src.Client.FirstName+" "+src.Client.LastName));
+                cfg.CreateMap<OrderViewModel, Order>();
             });
         }
     }

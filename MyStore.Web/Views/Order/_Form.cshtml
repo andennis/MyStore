@@ -1,0 +1,38 @@
+﻿@model OrderViewModel
+
+@Html.HiddenFor(m => m.OrderId)
+
+@if (Model.IsNew)
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.ClientId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ClientId, Model.Clients, new { @class = "form-control" })
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.OrderRefNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayTextFor(m => m.OrderRefNumber)
+            @Html.HiddenFor(m => m.OrderRefNumber)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ClientName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayTextFor(m => m.ClientName)
+            @Html.HiddenFor(m => m.ClientId)
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Comment, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(m => m.Comment, new { @class = "form-control" })
+    </div>
+</div>

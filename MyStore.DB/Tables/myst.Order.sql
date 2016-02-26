@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [myst].[Order]
 (
 	[OrderId] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [OrderRefNumber] NVARCHAR(64) NOT NULL, 
+    [OrderRefNumber] NVARCHAR(64) NULL, 
     [Comment] NVARCHAR(MAX) NULL, 
     [ClientId] INT NOT NULL, 
     [Version] INT NOT NULL, 

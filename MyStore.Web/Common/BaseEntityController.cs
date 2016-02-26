@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using AutoMapper;
@@ -36,13 +37,21 @@ namespace MyStore.Web.Common
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public virtual ActionResult Create()
+        {
+            return Create(x => { });
+        }
+
+        protected ActionResult Create(Action<TEntityViewModel> prepareModelAction)
         {
             var model = new TEntityViewModel();
             SetDefaultReturnUrl(model);
 
+            prepareModelAction?.Invoke(model);
+            PrepareModelToCreateView(model);
             return CreateView(model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -55,6 +64,7 @@ namespace MyStore.Web.Common
                 return RedirectTo(model);
             }
 
+            PrepareModelToCreateView(model);
             return CreateView(model);
         }
 
@@ -108,6 +118,10 @@ namespace MyStore.Web.Common
         {
             _service.Delete(id);
             return JsonEx();
+        }
+
+        protected virtual void PrepareModelToCreateView(TEntityViewModel model)
+        {
         }
 
         protected virtual void SetDefaultReturnUrl(TEntityViewModel model)
