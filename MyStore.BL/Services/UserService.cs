@@ -21,5 +21,10 @@ namespace MyStore.BL.Services
 
             return (user.Password == password);
         }
+
+        public User Get(string userName)
+        {
+            return _repository.Query().Filter(x => x.UserName == userName).Get().FirstOrDefault();
+        }
     }
 }

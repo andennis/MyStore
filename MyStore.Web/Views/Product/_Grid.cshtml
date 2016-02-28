@@ -8,7 +8,10 @@
                     c.BoundLink(p => p.Name, Url.Action("Edit"), id => id.ProductId);
                     c.Bound(p => p.Price);
                     c.Bound(p => p.Description);
-                    c.Bound(p => p.ProductId).Title("Action")
+
+                    var actions = c.Bound(p => p.ProductId).Title("Action")
                         .GridAction("Edit", Url.Action("Edit"))
                         .GridAjaxAction("Delete", Url.Action("Delete"));
+                    if (UserContext.ClientId.HasValue)
+                        actions.GridAjaxAction("Add To Basket", Url.Action("Add", "BasketItem"), confirmMessage:"Are you sure you want to add the product to your basket?");
                 }))

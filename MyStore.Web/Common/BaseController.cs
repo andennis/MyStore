@@ -4,6 +4,13 @@ namespace MyStore.Web.Common
 {
     public class BaseController : Controller
     {
+        public BaseController()
+        {
+            UserContext = new UserContext();
+        }
+
+        protected UserContext UserContext { get; }
+
         protected virtual JsonResult JsonEx(bool success = true, string message = null)
         {
             return JsonEx(null, success, message);

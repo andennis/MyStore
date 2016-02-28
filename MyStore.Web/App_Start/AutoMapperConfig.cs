@@ -22,6 +22,12 @@ namespace MyStore.Web
                     .ForMember(dst => dst.ProductPrice, x => x.MapFrom(src => src.Product.Price));
                 cfg.CreateMap<OrderItemViewModel, OrderItem>();
 
+                cfg.CreateMap<BasketItem, BasketItemViewModel>()
+                    .ForMember(dst => dst.ProductName, x => x.MapFrom(src => src.Product.Name))
+                    .ForMember(dst => dst.ProductPrice, x => x.MapFrom(src => src.Product.Price));
+                cfg.CreateMap<BasketItemViewModel, BasketItem>()
+                    .ForMember(dst => dst.ClientId, x => x.Ignore())
+                    .ForMember(dst => dst.ProductId, x => x.Ignore());
             });
         }
     }

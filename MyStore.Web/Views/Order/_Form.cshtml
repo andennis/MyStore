@@ -49,7 +49,10 @@
 @if (!Model.IsNew)
 {
     <div class="row">
-        @Html.ActionLink("Add New", "CreateOrderItem", "OrderItem", new {orderId = Model.OrderId}, new {@class = "btn btn-default"})
+        @*@if (!UserContext.ClientId.HasValue)*@
+        {
+            @Html.ActionLink("Add New", "CreateOrderItem", "OrderItem", new {orderId = Model.OrderId}, new {@class = "btn btn-default"})
+        }
 
         @(Html.Grid<OrderItemViewModel>()
               .Name("grdOrderItem")
@@ -62,9 +65,12 @@
                   c.Bound(p => p.ProductPrice).Title("Price, $");
                   c.Bound(p => p.Amount);
                   c.Bound(p => p.TotalPrice).Title("Total Price, $");
-                  c.Bound(p => p.OrderItemId).Title("Action")
-                      .GridAction("Edit", Url.Action("Edit", "OrderItem"))
-                      .GridAjaxAction("Delete", Url.Action("Delete", "OrderItem"));
+                  var actions = c.Bound(p => p.OrderItemId).Title("Action");
+                  //if (!UserContext.ClientId.HasValue)
+                  {
+                      actions.GridAction("Edit", Url.Action("Edit", "OrderItem"));
+                      actions.GridAjaxAction("Delete", Url.Action("Delete", "OrderItem"));
+                  }
               }))
     </div>
     <div class="row">

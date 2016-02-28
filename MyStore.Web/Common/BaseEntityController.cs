@@ -58,13 +58,18 @@ namespace MyStore.Web.Common
         {
             if (ModelState.IsValid)
             {
-                TEntity entity = Mapper.Map<TEntityViewModel, TEntity>(model);
-                _service.Create(entity);
+                DoCreate(model);
                 return RedirectTo(model);
             }
 
             PrepareModelToCreateView(model);
             return CreateView(model);
+        }
+
+        protected virtual void DoCreate(TEntityViewModel model)
+        {
+            TEntity entity = Mapper.Map<TEntityViewModel, TEntity>(model);
+            _service.Create(entity);
         }
 
         protected ActionResult CreateView(object model)

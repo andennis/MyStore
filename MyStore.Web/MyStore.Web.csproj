@@ -152,7 +152,10 @@
     <Compile Include="Common\BaseEntityController.cs" />
     <Compile Include="Common\BaseViewModel.cs" />
     <Compile Include="Common\IViewModel.cs" />
+    <Compile Include="Common\MyStoreWebViewPage.cs" />
+    <Compile Include="Common\UserContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BasketItemController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BasketItemViewModel.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\OrderItemViewModel.cs" />
@@ -308,10 +312,11 @@
     <Content Include="Views\Order\_Grid.cshtml" />
     <Content Include="Views\Order\_Form.cshtml" />
     <Content Include="Views\OrderItem\_Form.cshtml" />
+    <Content Include="Views\BasketItem\_Grid.cshtml" />
+    <Content Include="Views\BasketItem\Index.cshtml" />
+    <Content Include="Views\BasketItem\_Form.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />

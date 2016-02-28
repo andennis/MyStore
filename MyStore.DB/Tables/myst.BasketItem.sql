@@ -3,6 +3,7 @@
 	[BasketItemId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [ClientId] INT NOT NULL, 
     [ProductId] INT NOT NULL,
+	[Amount] INT NOT NULL,
     [Version] INT NOT NULL, 
     [CreatedDate] DATETIME NOT NULL, 
     [UpdatedDate] DATETIME NOT NULL

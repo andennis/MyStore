@@ -1,0 +1,14 @@
+﻿@(Html.Grid<BasketItemViewModel>()
+    .Name("grdBasketItem")
+    .CssClass("myst-grid")
+    .DataSource(ds => ds.Read(Url.Action("GridSearch", new { ClientId = this.UserContext.ClientId })))
+    .Columns(c =>
+    {
+        c.Bound(p => p.BasketItemId).Title("ID").Width("100px");
+        c.BoundLink(p => p.ProductName, Url.Action("Edit", "Product"), id => id.ProductId).Title("Product Name");
+        c.Bound(p => p.ProductPrice).Title("Product Price, $");
+        c.Bound(p => p.Amount);
+        c.Bound(p => p.BasketItemId).Title("Action")
+            .GridAction("Edit", Url.Action("Edit"))
+            .GridAjaxAction("Delete", Url.Action("Delete"));
+    }))

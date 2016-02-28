@@ -37,9 +37,12 @@ namespace MyStore.BL.Services
 
         public override IEnumerable<Order> Search(OrderFilter searchFilter)
         {
-            return _repository.Query()
-                .Include(x => x.Client)
-                .Get().ToList();
+            var query = _repository.Query()
+                .Include(x => x.Client);
+            if (searchFilter.ClientId.HasValue)
+                query.Filter(x => x.ClientId == searchFilter.ClientId);
+
+            return query.Get().ToList();
         }
     }
 }

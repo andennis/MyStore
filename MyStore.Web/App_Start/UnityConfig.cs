@@ -51,6 +51,7 @@ namespace MyStore.Web
             container.RegisterType<IClientService, ClientService>(new PerRequestLifetimeManager());
             container.RegisterType<IOrderService, OrderService>(new PerRequestLifetimeManager());
             container.RegisterType<IOrderItemService, OrderItemService>(new PerRequestLifetimeManager());
+            container.RegisterType<IBasketItemService, BasketItemService>(new PerRequestLifetimeManager());
         }
     }
 }
