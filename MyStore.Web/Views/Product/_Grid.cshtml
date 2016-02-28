@@ -6,6 +6,7 @@
                 {
                     c.Bound(p => p.ProductId).Title("ID").Width("100px");
                     c.BoundLink(p => p.Name, Url.Action("Edit"), id => id.ProductId);
+                    c.Bound(p => p.Price);
                     c.Bound(p => p.Description);
                     c.Bound(p => p.ProductId).Title("Action")
                         .GridAction("Edit", Url.Action("Edit"))

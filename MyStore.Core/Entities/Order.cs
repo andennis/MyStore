@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common.Repository;
+using MyStore.Core.Enums;
 
 namespace MyStore.Core.Entities
 {
@@ -12,6 +13,7 @@ namespace MyStore.Core.Entities
         public int ClientId { get; set; }
         public Client Client { get; set; }
 
-        public ICollection<OrderItem> Items { get; set; } 
+        public ICollection<OrderItem> OrderItems { get; set; }
+        public OrderStatus Status { get; set; }
     }
 }

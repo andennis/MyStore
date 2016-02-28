@@ -23,6 +23,13 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(m => m.Status, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(m => m.Status)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(m => m.ClientName, new {@class = "col-md-2 control-label"})
             <div class="col-md-10">
                 @Html.DisplayTextFor(m => m.ClientName)
@@ -39,10 +46,10 @@
     </div>
 </div>
 
-@*if (!Model.IsNew)
+@if (!Model.IsNew)
 {
     <div class="row">
-        @Html.ActionLink("Add New", "Create", "OrderItem", new {@class = "btn btn-default", disabled = "disabled"})
+        @Html.ActionLink("Add New", "CreateOrderItem", "OrderItem", new {orderId = Model.OrderId}, new {@class = "btn btn-default"})
 
         @(Html.Grid<OrderItemViewModel>()
               .Name("grdOrderItem")
@@ -50,13 +57,23 @@
               .DataSource(ds => ds.Read(Url.Action("GridSearch", "OrderItem", new {Model.OrderId})))
               .Columns(c =>
               {
-                  c.Bound(p => p.OrderId).Title("ID").Width("100px");
+                  c.Bound(p => p.OrderItemId).Title("ID").Width("100px");
                   c.BoundLink(p => p.ProductName, Url.Action("Edit", "Product"), id => id.ProductId).Title("Product Name");
+                  c.Bound(p => p.ProductPrice).Title("Price, $");
                   c.Bound(p => p.Amount);
-                  c.Bound(p => p.TotalAmount).Title("Total Amount");
-                  c.Bound(p => p.OrderId).Title("Action")
-                      .GridAction("Edit", Url.Action("Edit"))
-                      .GridAjaxAction("Delete", Url.Action("Delete"));
+                  c.Bound(p => p.TotalPrice).Title("Total Price, $");
+                  c.Bound(p => p.OrderItemId).Title("Action")
+                      .GridAction("Edit", Url.Action("Edit", "OrderItem"))
+                      .GridAjaxAction("Delete", Url.Action("Delete", "OrderItem"));
               }))
     </div>
-}*@
+    <div class="row">
+        <p><b>Order Total Price: @Model.TotalPrice.ToString("C")</b></p>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.grid.Init($("#grdOrderItem"));
+    })
+</script>

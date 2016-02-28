@@ -4,6 +4,7 @@ using System.Linq;
 using Common.BL;
 using MyStore.Core;
 using MyStore.Core.Entities;
+using MyStore.Core.Enums;
 using MyStore.Core.SearchFilters;
 using MyStore.Core.Services;
 
@@ -18,8 +19,9 @@ namespace MyStore.BL.Services
 
         public override void Create(Order entity)
         {
+            entity.Status = OrderStatus.Pending;
             base.Create(entity);
-            entity.OrderRefNumber = $"RFN-{DateTime.Today.ToString("yyyyMMdd")}-{entity.ClientId}";
+            entity.OrderRefNumber = $"RFN-{DateTime.Today.ToString("yyyyMMdd")}-{entity.OrderId}";
             Update(entity);
         }
 
@@ -28,6 +30,8 @@ namespace MyStore.BL.Services
             return _repository.Query()
                 .Filter(x => x.OrderId == entityId)
                 .Include(x => x.Client)
+                .Include(x => x.OrderItems)
+                .Include(x => x.OrderItems.Select(oi => oi.Product))
                 .Get().FirstOrDefault();
         }
 

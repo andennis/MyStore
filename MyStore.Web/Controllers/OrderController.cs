@@ -27,5 +27,13 @@ namespace MyStore.Web.Controllers
             IEnumerable<Client> clients = _clientService.Search(new DefaultSearchFilter());
             model.Clients = new SelectList(clients.Select(c => new { Value = c.ClientId, Text = c.FirstName + " " + c.LastName}), "Value", "Text");
         }
+
+        protected override OrderViewModel GetViewModel(int entityId)
+        {
+            Order entity = _service.Get(entityId);
+            var model = Mapper.Map<Order, OrderViewModel>(entity);
+            model.TotalPrice = entity.OrderItems.Sum(x => x.Amount * x.Product.Price);
+            return model;
+        }
     }
 }

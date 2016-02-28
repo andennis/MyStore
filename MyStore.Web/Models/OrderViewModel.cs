@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using MyStore.Core.Enums;
 using MyStore.Web.Common;
 
 namespace MyStore.Web.Models
@@ -24,6 +25,7 @@ namespace MyStore.Web.Models
         public string ClientName { get; set; }
 
         public IEnumerable<SelectListItem> Clients { get; set; }
-
+        public decimal TotalPrice { get; set; }
+        public OrderStatus Status { get; set; }
     }
 }

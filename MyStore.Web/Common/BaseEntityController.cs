@@ -45,9 +45,8 @@ namespace MyStore.Web.Common
         protected ActionResult Create(Action<TEntityViewModel> prepareModelAction)
         {
             var model = new TEntityViewModel();
-            SetDefaultReturnUrl(model);
-
             prepareModelAction?.Invoke(model);
+            SetDefaultReturnUrl(model);
             PrepareModelToCreateView(model);
             return CreateView(model);
         }
@@ -76,11 +75,16 @@ namespace MyStore.Web.Common
         [HttpGet]
         public virtual ActionResult Edit(int id)
         {
-            TEntity entity = _service.Get(id);
-            TEntityViewModel model = Mapper.Map<TEntity, TEntityViewModel>(entity);
-
+            TEntityViewModel model = GetViewModel(id);
             SetDefaultReturnUrl(model);
+            PrepareModelToEditView(model);
             return EditView(model);
+        }
+
+        protected virtual TEntityViewModel GetViewModel(int entityId)
+        {
+            TEntity entity = _service.Get(entityId);
+            return Mapper.Map<TEntity, TEntityViewModel>(entity);
         }
 
         [HttpPost]
@@ -96,6 +100,7 @@ namespace MyStore.Web.Common
                 return RedirectTo(model);
             }
 
+            PrepareModelToEditView(model);
             return EditView(model);
         }
 
@@ -121,6 +126,9 @@ namespace MyStore.Web.Common
         }
 
         protected virtual void PrepareModelToCreateView(TEntityViewModel model)
+        {
+        }
+        protected virtual void PrepareModelToEditView(TEntityViewModel model)
         {
         }
 

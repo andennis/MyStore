@@ -1,0 +1,40 @@
+﻿@model OrderItemViewModel
+    
+@Html.HiddenFor(m => m.OrderId)
+@Html.HiddenFor(m => m.OrderItemId)
+
+<div class="form-group">
+    @Html.LabelFor(m => m.ProductId, new {@class = "col-md-2 control-label"})
+    <div class="col-md-10">
+        @Html.DropDownListFor(m => m.ProductId, Model.Products, new {@class = "form-control"})
+    </div>
+</div>
+
+@if (!Model.IsNew)
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductPrice, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayTextFor(m => m.ProductPrice)
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Amount, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Amount)
+    </div>
+</div>
+
+@if (!Model.IsNew)
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.TotalPrice, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayTextFor(m => m.TotalPrice)
+        </div>
+    </div>
+}
+
+

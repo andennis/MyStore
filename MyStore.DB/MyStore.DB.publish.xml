@@ -7,6 +7,7 @@
     <TargetConnectionString>Data Source=localhost;Persist Security Info=True;User ID=sa;Pooling=False</TargetConnectionString>
     <ProfileVersionNumber>1</ProfileVersionNumber>
     <BlockWhenDriftDetected>False</BlockWhenDriftDetected>
-    <RegisterDataTierApplication>True</RegisterDataTierApplication>
+    <RegisterDataTierApplication>False</RegisterDataTierApplication>
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
   </PropertyGroup>
 </Project>

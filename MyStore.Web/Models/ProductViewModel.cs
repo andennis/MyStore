@@ -13,6 +13,7 @@ namespace MyStore.Web.Models
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Price, $")]
         public decimal? Price { get; set; }
 
         public string Description { get; set; }
